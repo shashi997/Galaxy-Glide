@@ -1,8 +1,8 @@
 {
-  "name": "galaxy-glide",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Interactive Space Game ",
-  "main": "app.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

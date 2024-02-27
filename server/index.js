@@ -5,7 +5,7 @@ const port = 8080
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+    res.send({ title: 'Galaxy Glide Game'})
 })
 
 app.listen(port, () => {
