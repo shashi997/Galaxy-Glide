@@ -4,7 +4,11 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
+app.set('view-engine', 'ejs')
+
+app.use(express.urlencoded({extended: false}))
+
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -21,4 +25,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', (req, res) => {
     res.send({ title: 'Galaxy Glide Game'})
 })
+
+// route setup
+app.use('/register', require('./routes/register'))
+app.use('/login', require('./routes/login'))
 
