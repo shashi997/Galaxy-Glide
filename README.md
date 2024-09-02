@@ -1,5 +1,5 @@
 # Galaxy-Glide
-Galaxy Gliders is a space exploration game 
+Galaxy Gliders is an Interactive space exploration and educational (game) 
 
 ## To Run The Application
 1. Clone the Project with command "git clone https://github.com/shashi997/Galaxy-Glide.git" in terminal with the location
