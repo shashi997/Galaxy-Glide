@@ -26,6 +26,7 @@ function Play() {
     const earthTexture = textureLoader.load("/textures/2k_earth_daymap.jpg");
     const marsTexture = textureLoader.load("/textures/2k_mars.jpg");
     const moonTexture = textureLoader.load("/textures/2k_moon.jpg");
+    const jupiterTexture = textureLoader.load('/textures/2k_jupiter.jpg');
 
     const backgroundCubemap = cubeTextureLoader
     .load( [
@@ -54,6 +55,9 @@ function Play() {
     });
     const moonMaterial = new THREE.MeshStandardMaterial({
       map: moonTexture,
+    });
+    const jupiterMaterial = new THREE.MeshStandardMaterial({
+      map: jupiterTexture 
     });
 
     // add stuff here
@@ -120,6 +124,14 @@ function Play() {
           },
         ],
       },
+      {
+        name: "Jupiter",
+        radius: 1.5,
+        distance: 30,
+        speed: 0.002,
+        material: jupiterMaterial,
+        moons: [],
+      }
     ];
 
     const createPlanet = (planet) =>{
