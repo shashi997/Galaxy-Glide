@@ -1,29 +1,24 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
+const connectDB = require('./db/db')
 
-const mongoose = require('mongoose')
+const port = process.env.PORT || 8000
 
 // app.use(express.static('public'))
 app.set('view-engine', 'ejs')
 
 app.use(express.urlencoded({extended: false}))
 
+connectDB()
 
-// connect to db
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log("DB is connected");
-        app.listen(process.env.PORT || 8000, () => {
-            console.log(`App listening on port ${process.env.PORT || 8000}`);
-        })
-    })
-    .catch((e) => {
-        console.log(e);
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
 })
 
+
 app.get('/', (req, res) => {
-    res.send({ title: 'Galaxy Glide Game'})
+    res.send("<h1>Galaxy Glide</h1>")
 })
 
 // route setup
