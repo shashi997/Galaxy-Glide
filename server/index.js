@@ -11,10 +11,17 @@ app.set('view-engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 
 connectDB()
-
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+.then(() => {
+    app.listen(port, () => {
+        console.log(`App listening on port ${port}`);
+    })
 })
+.catch((err) => {
+    console.log("Mongodb Connection failed", err);
+    
+})
+
+
 
 
 app.get('/', (req, res) => {
