@@ -20,13 +20,13 @@ function Play() {
     cubeTextureLoader.setPath('/textures/cubeMap/')
 
     // adding textures
-    const sunTexture = textureLoader.load("/textures/2k_sun.jpg");
-    const mercuryTexture = textureLoader.load("/textures/2k_mercury.jpg");
-    const venusTexture = textureLoader.load("/textures/2k_venus_surface.jpg");
-    const earthTexture = textureLoader.load("/textures/2k_earth_daymap.jpg");
-    const marsTexture = textureLoader.load("/textures/2k_mars.jpg");
-    const moonTexture = textureLoader.load("/textures/2k_moon.jpg");
-    const jupiterTexture = textureLoader.load('/textures/2k_jupiter.jpg');
+    const sunTexture = textureLoader.load("/textures/2k_sun.webp");
+    const mercuryTexture = textureLoader.load("/textures/2k_mercury.webp");
+    const venusTexture = textureLoader.load("/textures/2k_venus_surface.webp");
+    const earthTexture = textureLoader.load("/textures/2k_earth_daymap.webp");
+    const marsTexture = textureLoader.load("/textures/2k_mars.webp");
+    const moonTexture = textureLoader.load("/textures/2k_moon.webp");
+    const jupiterTexture = textureLoader.load('/textures/2k_jupiter.webp');
 
     const backgroundCubemap = cubeTextureLoader
     .load( [
