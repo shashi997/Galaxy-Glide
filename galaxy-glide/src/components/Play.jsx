@@ -200,13 +200,13 @@ function Play() {
     camera.position.y = 5;
 
     // initialize the renderer
-    const canvas = document.querySelector("canvas.threejs");
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    document.body.appendChild(renderer.domElement);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // add controls
-    const controls = new OrbitControls(camera, canvas);
+    const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.maxDistance = 200;
     controls.minDistance = 20;
@@ -238,11 +238,14 @@ function Play() {
 
     renderloop();
 
-
+    return () => {
+      renderer.dispose();
+      document.body.removeChild(renderer.domElement);
+    };
 
   }, []);
 
-  return null; // Since we append the renderer directly to the DOM
-  }
+  return null; 
+}
   
   export default Play
