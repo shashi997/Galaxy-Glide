@@ -5,7 +5,11 @@ const connectDB = require('./config/db')
 const cors = require('cors')
 
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, 
+}))
 const port = process.env.PORT || 8000
 
 // app.use(express.static('public'))
