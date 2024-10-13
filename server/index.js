@@ -27,14 +27,15 @@ connectDB()
 // route setup
 app.use('/auth', require('./routes/auth'))
 
+app.get('/', (req, res) => {
+    res.send("Hello")
+})
+
+
 app.get('*', (req, res) => {
     res.status(404).json({ error: 'Not Found' });
 });
 
-
-app.get('/', (req, res) => {
-    res.json("Hello")
-})
 
 
 
