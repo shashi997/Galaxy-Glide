@@ -28,7 +28,7 @@ connectDB()
 
 
 app.get('/', (req, res) => {
-    res.send('<h1>Galaxy Glide</h1> <a href="/auth/google">Authenticate With Google</a>')
+    res.json("Hello")
 })
 
 
