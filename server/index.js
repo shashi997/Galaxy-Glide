@@ -24,7 +24,8 @@ connectDB()
     
 })
 
-
+// route setup
+app.use('/auth', require('./routes/auth'))
 
 
 app.get('/', (req, res) => {
@@ -34,6 +35,5 @@ app.get('/', (req, res) => {
 
 
 
-// route setup
-app.use('/auth', require('./routes/auth'))
+
 
