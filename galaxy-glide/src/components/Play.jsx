@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Pane } from "tweakpane";
 import '../styles/Play.css'
+import { Vector2, Raycaster } from 'three';
 
 function Play() {
+
+  const [selectedObject, setSelectedObject] = useState(null);
 
   useEffect(() => {
 
@@ -68,11 +71,14 @@ function Play() {
 
     const sun = new THREE.Mesh(sphereGeometry, sunMaterial);
     sun.scale.setScalar(5);
+    sun.name = "Sun"
+    sun.userData = "The Sun is the star at the heart of our solar system. Its gravity holds the solar system together, keeping everything — from the biggest planets to the smallest bits of debris — in its orbit."
     scene.add(sun);
 
     const planets = [
       {
         name: "Mercury",
+        info: "Mercury is the first planet from the Sun and the smallest in the Solar System, It speeds around the Sun every 88 days, traveling through space at nearly 29 miles (47 kilometers) per second, faster than any other planet.",
         radius: 0.5,
         distance: 10,
         speed: 0.01,
@@ -81,6 +87,7 @@ function Play() {
       },
       {
         name: "Venus",
+        info: "Its thick atmosphere traps heat in a runaway greenhouse effect, making it the hottest planet in our solar system with surface temperatures hot enough to melt lead.",
         radius: 0.8,
         distance: 15,
         speed: 0.007,
@@ -89,6 +96,7 @@ function Play() {
       },
       {
         name: "Earth",
+        info: "Earth is the third planet from the Sun and the only astronomical object known to harbor life.",
         radius: 1,
         distance: 20,
         speed: 0.005,
@@ -104,6 +112,7 @@ function Play() {
       },
       {
         name: "Mars",
+        info: "Mars is one of the most explored bodies in our solar system & Mars has two small moons, Phobos and Deimos, that may be captured asteroids. They're potato-shaped because they have too little mass for gravity to make them spherical.",
         radius: 0.7,
         distance: 25,
         speed: 0.003,
@@ -126,6 +135,7 @@ function Play() {
       },
       {
         name: "Jupiter",
+        info: "Jupiter is the largest planet in our solar system. If Jupiter was a hollow shell, 1,000 Earths could fit inside. Jupiter also is the oldest planet, forming from the dust and gases left over from the Sun's formation 4.5 billion years ago. ",
         radius: 1.5,
         distance: 30,
         speed: 0.002,
@@ -141,6 +151,8 @@ function Play() {
       )
       planetMesh.scale.setScalar(planet.radius)
       planetMesh.position.x = planet.distance
+      planetMesh.name = planet.name
+      planetMesh.userData = planet.info
       return planetMesh
     }
 
@@ -151,6 +163,7 @@ function Play() {
       )
       moonMesh.scale.setScalar(moon.radius)
       moonMesh.position.x = moon.distance
+      moonMesh.name = moon.name
       return moonMesh
     }
 
@@ -166,7 +179,6 @@ function Play() {
       return planetMesh
     })
 
-    console.log(planetMeshes)
 
     // add lights
     const ambientLight = new THREE.AmbientLight(
@@ -238,6 +250,39 @@ function Play() {
 
     renderloop();
 
+// ========= END SCENE SETUP ==============
+
+    const raycaster = new Raycaster();
+
+    document.addEventListener('mousedown', onMouseDown)
+
+    function onMouseDown(event) {
+      const coords = new Vector2(
+        (event.clientX / renderer.domElement.clientWidth) * 2 -1,
+        -((event.clientY / renderer.domElement.clientHeight) * 2 -1 )
+      )
+      
+      raycaster.setFromCamera(coords, camera)
+      
+      const intersections = raycaster.intersectObjects(scene.children, true)
+
+      if(intersections.length > 0) {
+        const clickedObject = intersections[0].object
+        console.log(`${clickedObject.name} was clicked`);
+
+        const objectInfo = clickedObject.userData && Object.keys(clickedObject.userData).length > 0
+        ? clickedObject.userData
+        : 'No info is available';
+        
+        setSelectedObject({
+          name: clickedObject.name,
+          info: objectInfo
+        })
+        
+        
+      }
+    }
+
     return () => {
       renderer.dispose();
       document.body.removeChild(renderer.domElement);
@@ -245,7 +290,17 @@ function Play() {
 
   }, []);
 
-  return null; 
+  // return null; 
+  return (
+    <div>
+       {selectedObject && (
+        <div className="info-panel" style={{ position: 'absolute', bottom: '20px', left: '20px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff', padding: '10px', borderRadius: '5px' }}>
+          <h2>{selectedObject.name}</h2>
+          <p>{selectedObject.info}</p> 
+        </div>
+      )}
+    </div>
+  )
 }
   
   export default Play
